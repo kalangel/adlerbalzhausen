@@ -1,0 +1,9 @@
+{
+  "name": "adlerbalzhausen-root",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix gasthof-adler run dev",
+    "build": "npm --prefix gasthof-adler run build",
+    "start": "npm --prefix gasthof-adler run start"
+  }
+}

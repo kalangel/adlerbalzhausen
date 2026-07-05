@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "gasthof-adler-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "gasthof-adler", "run", "dev"],
+      "port": 3000
+    }
+  ]
+}
