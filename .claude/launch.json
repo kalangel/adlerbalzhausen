@@ -4,7 +4,7 @@
     {
       "name": "gasthof-adler-dev",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["--prefix", "gasthof-adler", "run", "dev"],
+      "runtimeArgs": ["run", "dev"],
       "port": 3000
     }
   ]
