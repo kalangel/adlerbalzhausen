@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CalendarDays, Church, MapPin, Phone, Users } from "lucide-react";
 import Reveal from "@/components/Reveal";
+import HeroMirror from "@/components/HeroMirror";
 import MapEmbed from "@/components/MapEmbed";
 import { events, formatDate } from "@/lib/events";
 import { openingHours, site, warmeKueche } from "@/lib/site";
@@ -56,7 +57,7 @@ export default function Home() {
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-wood/90 via-wood/40 to-wood/30" />
-        <div className="relative mx-auto max-w-3xl px-4 py-24">
+        <div className="relative z-10 mx-auto max-w-3xl px-4 py-24">
           <p className="mb-4 font-medium uppercase tracking-[0.25em] text-gold">
             Familie Greiner · Balzhausen
           </p>
@@ -81,6 +82,7 @@ export default function Home() {
             </Link>
           </div>
         </div>
+        <HeroMirror />
       </section>
 
       {/* Über uns */}
