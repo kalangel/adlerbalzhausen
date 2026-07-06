@@ -40,7 +40,7 @@ export default function HeroMirror() {
     <div
       ref={ref}
       aria-hidden
-      className="pointer-events-none absolute inset-x-0 bottom-0 h-40 overflow-hidden sm:h-56"
+      className="pointer-events-none absolute inset-x-0 bottom-0 h-28 overflow-hidden sm:h-36"
     >
       <div
         className="absolute inset-0 will-change-transform"
@@ -52,7 +52,7 @@ export default function HeroMirror() {
           fill
           aria-hidden
           sizes="100vw"
-          className="scale-125 object-cover blur-lg"
+          className="scale-125 object-cover"
         />
       </div>
       {/* Weicher Übergang, damit das Band nahtlos in den Hero übergeht */}
