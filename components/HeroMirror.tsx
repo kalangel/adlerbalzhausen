@@ -4,10 +4,14 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 
 /**
- * Verschwommenes „Mirror"-Band am unteren Rand des Heros.
- * Das Bild bewegt sich beim Scrollen leicht mit (Parallax) und erzeugt so
- * einen sanften Spiegel-/Tiefeneffekt. Respektiert prefers-reduced-motion.
+ * „Mirror"-Band am unteren Rand des Heros.
+ * Das Bild pant durchgehend mit dem Scrollrad mit (Parallax), solange das
+ * Band im Viewport ist – gebunden an die Bildschirmposition des Bandes, damit
+ * die Bewegung nie stehen bleibt und die Kanten des vergrößerten Bildes nie
+ * sichtbar werden. Respektiert prefers-reduced-motion.
  */
+const RANGE = 50; // max. Versatz in px (innerhalb des Skalierungs-Spielraums)
+
 export default function HeroMirror() {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -19,9 +23,14 @@ export default function HeroMirror() {
     let raf = 0;
     const update = () => {
       raf = 0;
-      // Sanfter Parallax: max. 48px Versatz, damit die Kanten des
-      // leicht vergrößerten Bildes nie sichtbar werden.
-      const y = Math.min(window.scrollY * 0.2, 48);
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight;
+      // Fortschritt 0..1, während das Band von unten nach oben durch den
+      // Viewport wandert – bleibt so über den gesamten Sichtbereich in
+      // Bewegung, statt bei einem festen Scrollwert stehen zu bleiben.
+      const progress = (vh - rect.top) / (vh + rect.height);
+      const clamped = Math.max(0, Math.min(1, progress));
+      const y = (clamped - 0.5) * 2 * RANGE;
       el.style.setProperty("--parallax", `${y}px`);
     };
     const onScroll = () => {
@@ -30,8 +39,10 @@ export default function HeroMirror() {
 
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
       if (raf) cancelAnimationFrame(raf);
     };
   }, []);
@@ -52,7 +63,7 @@ export default function HeroMirror() {
           fill
           aria-hidden
           sizes="100vw"
-          className="scale-125 object-cover"
+          className="scale-[2] object-cover"
         />
       </div>
       {/* Weicher Übergang, damit das Band nahtlos in den Hero übergeht */}
